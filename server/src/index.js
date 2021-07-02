@@ -14,16 +14,17 @@ require('./passport')
 const app = express()
 
 // Middlewares
+app.use(morgan('dev'));
+app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use(morgan('dev'));
-app.use(cors());
 app.use(flash());
 app.use(session({
     secret: 'topsecret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     store: mySqlSession(database)
 }));
 
